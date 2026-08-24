@@ -1,4 +1,4 @@
-import 'package:assignment10/home_screen.dart';
+import 'package:assignment10/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

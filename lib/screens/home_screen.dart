@@ -11,7 +11,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('CRUD_API')),
+      
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        title: Text('CRUD_API')),
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
