@@ -22,4 +22,17 @@ class ProductController {
       throw e.toString();
     }
   }
+
+  Future<void> createProduct(Data data) async {
+    try {
+      final response = http.post(Uri.parse(ApiUrl.createProductUrl), 
+      headers: {
+        'accept' : 'application/json',
+        'Content-Type' : 'application/json',
+      },
+      body:jsonEncode({}) );
+    } catch (e) {
+      throw e.toString();
+    }
+  }
 }

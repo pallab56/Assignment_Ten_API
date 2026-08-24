@@ -14,7 +14,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData.dark(useMaterial3: true).copyWith(),
+      theme: ThemeData.dark(useMaterial3: true).copyWith(
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white.withAlpha(50)),
+            borderRadius: BorderRadius.circular(10),
+          ),
+        )
+      ),
       home: HomeScreen(),
     );
   }
