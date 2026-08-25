@@ -25,12 +25,27 @@ class ProductController {
 
   Future<void> createProduct(Data data) async {
     try {
-      final response = http.post(Uri.parse(ApiUrl.createProductUrl), 
-      headers: {
-        'accept' : 'application/json',
-        'Content-Type' : 'application/json',
-      },
-      body:jsonEncode({}) );
+      final response = await http.post(
+        Uri.parse(ApiUrl.createProductUrl),
+        headers: {
+          'accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          "ProductName": data.productName,
+          "ProductCode": data.productCode,
+          "Img": data.img,
+          "Qty": data.qty,
+          "UnitPrice": data.unitPrice,
+          "TotalPrice": data.totalPrice,
+        }),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        getProducts();
+      } else {
+        throw "Something went wrong ${response.statusCode}";
+      }
     } catch (e) {
       throw e.toString();
     }

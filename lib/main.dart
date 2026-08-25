@@ -23,6 +23,10 @@ class MyApp extends StatelessWidget {
             borderSide: BorderSide(color: Colors.white.withAlpha(50)),
             borderRadius: BorderRadius.circular(10),
           ),
+        ),
+        appBarTheme: AppBarTheme(
+          scrolledUnderElevation: 0,
+          
         )
       ),
       home: HomeScreen(),

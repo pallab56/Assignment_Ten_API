@@ -90,7 +90,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 ElevatedButton.icon(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    
+                                  },
                                   icon: const Icon(Icons.edit_note),
                                   label: const Text('Edit'),
                                 ),
@@ -115,11 +117,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => CreateProduct()),
+            MaterialPageRoute(
+              builder: (_) => CreateProduct(instance: controller),
+            ),
           );
+          loadData();
         },
         backgroundColor: Colors.blueGrey.shade800,
         tooltip: 'Add Product',
@@ -128,4 +133,5 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+  
 }
