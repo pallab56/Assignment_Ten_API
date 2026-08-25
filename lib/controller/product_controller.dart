@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 
 class ProductController {
   List<Data> products = [];
+
+  //read part
   Future<void> getProducts() async {
     try {
       final response = await http.get(Uri.parse(ApiUrl.readProductUrl));
@@ -23,6 +25,7 @@ class ProductController {
     }
   }
 
+  //create part
   Future<void> createProduct(Data data) async {
     try {
       final response = await http.post(
@@ -51,6 +54,7 @@ class ProductController {
     }
   }
 
+  //Update part
   Future<void> editProduct(Data data, String productId) async {
     try {
       final response = await http.post(
@@ -75,6 +79,25 @@ class ProductController {
         throw 'something went wrong ${response.statusCode}';
       }
       {}
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  //delete part
+  Future<void> deleteProduct(String productId) async {
+    try {
+      
+      final response = await http.get(
+        Uri.parse(ApiUrl.deleteProductByIdUrl(productId)),
+      );
+       print('Status: ${response.statusCode}, Body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        await getProducts();
+      } else {
+        throw 'Something Went Wrong ${response.statusCode}';
+      }
     } catch (e) {
       throw e.toString();
     }

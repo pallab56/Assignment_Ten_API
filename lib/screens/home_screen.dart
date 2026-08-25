@@ -1,4 +1,5 @@
 import 'package:assignment10/controller/product_controller.dart';
+import 'package:assignment10/model/product_model.dart';
 import 'package:assignment10/screens/create_product.dart';
 import 'package:assignment10/screens/edit_product.dart';
 import 'package:assignment10/screens/widgets/button.dart';
@@ -110,7 +111,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                 IconButton(
                                   onPressed: () {
-                                    _showDeleteDialog(context);
+                                    _showDeleteDialog(
+                                      context,
+                                      product,
+                                      product.sId.toString(),
+                                    );
                                   },
                                   icon: Icon(
                                     Icons.delete_outline,
@@ -137,6 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
               builder: (_) => CreateProduct(instance: controller),
             ),
           );
+
           loadData();
         },
         backgroundColor: Colors.blueGrey.shade800,
@@ -147,7 +153,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _showDeleteDialog(BuildContext context) {
+  Future<void> _showDeleteDialog(
+    BuildContext context,
+    Data data,
+    String productid,
+  ) {
+    final productId = productid;
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -197,7 +208,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await controller.deleteProduct(productId);
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                  }
+                  loadData();
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red,
 
