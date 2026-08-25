@@ -1,5 +1,7 @@
 import 'package:assignment10/controller/product_controller.dart';
 import 'package:assignment10/screens/create_product.dart';
+import 'package:assignment10/screens/edit_product.dart';
+import 'package:assignment10/screens/widgets/button.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -90,15 +92,26 @@ class _HomeScreenState extends State<HomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 ElevatedButton.icon(
-                                  onPressed: () {
-                                    
+                                  onPressed: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => EditProduct(
+                                          data: product,
+                                          instance: controller,
+                                        ),
+                                      ),
+                                    );
+                                    loadData();
                                   },
                                   icon: const Icon(Icons.edit_note),
                                   label: const Text('Edit'),
                                 ),
 
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    _showDeleteDialog(context);
+                                  },
                                   icon: Icon(
                                     Icons.delete_outline,
                                     color: Colors.red,
@@ -133,5 +146,79 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-  
+
+  _showDeleteDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Delete Product'),
+        content: RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            children: [
+              TextSpan(text: 'Are you sure you want to delete '),
+              TextSpan(
+                text: ' This ',
+                style: TextStyle(
+                  color: Colors.teal,
+                  fontSize: 24,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+              TextSpan(text: 'product!'),
+            ],
+          ),
+        ),
+        actions: [
+          Row(
+            // mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(10),
+                    side: BorderSide(color: Colors.white12),
+                  ),
+                ),
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(10),
+                    side: BorderSide(color: Colors.white12),
+                  ),
+                ),
+                child: Text(
+                  'Delete',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }

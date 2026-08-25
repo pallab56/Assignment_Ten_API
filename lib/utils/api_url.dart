@@ -3,5 +3,6 @@ class ApiUrl {
   static String readProductUrl = '$baseUrl/ReadProduct';
   static String createProductUrl = '$baseUrl/CreateProduct';
   static String updateProductByIdUrl(String productId) => '$baseUrl/UpdateProduct/$productId';
+  
   static String deleteProductByIdUrl(String productId) => '$baseUrl/DeleteProduct/$productId';
 }

@@ -50,4 +50,33 @@ class ProductController {
       throw e.toString();
     }
   }
+
+  Future<void> editProduct(Data data, String productId) async {
+    try {
+      final response = await http.post(
+        Uri.parse(ApiUrl.updateProductByIdUrl(productId)),
+
+        headers: {
+          'accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          "ProductName": data.productName,
+          "ProductCode": data.productCode,
+          "Img": data.img,
+          "Qty": data.qty,
+          "UnitPrice": data.unitPrice,
+          "TotalPrice": data.totalPrice,
+        }),
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        getProducts();
+      } else {
+        throw 'something went wrong ${response.statusCode}';
+      }
+      {}
+    } catch (e) {
+      throw e.toString();
+    }
+  }
 }
